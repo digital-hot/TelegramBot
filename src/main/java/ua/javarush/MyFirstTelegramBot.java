@@ -16,19 +16,29 @@ import static ua.javarush.TelegramBotUtils.*;
 public class MyFirstTelegramBot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
-        // TODO: додай ім'я бота в лапки нижче
+
         return "java_rash_test_bot";
     }
 
     @Override
     public String getBotToken() {
-        // TODO: додай токен бота в лапки нижче
+
         return "6669082298:AAF-K9f-e5jtOIU2tbHb7auzOLv27-fXqkI";
     }
 
     @Override
     public void onUpdateReceived(Update update) {
         // TODO: основний функціонал бота будемо писати тут
+        Long chatId = getChatId(update);
+        if (update.hasMessage() && update.getMessage().getText().equals("/start")) {
+            SendMessage message = createMessage(chatId,"*Привіт* _Лукавиця_ 19");
+            sendApiMethodAsync(message);
+        }
+        if (update.hasMessage() && update.getMessage().getText().contains("привіт")) {
+            SendMessage message = createMessage(chatId,"Як тебе звати?");
+            sendApiMethodAsync(message);
+        }
+
     }
 
     public static void main(String[] args) throws TelegramApiException {
